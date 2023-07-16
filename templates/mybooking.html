@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Bookings</title>
+    <style>
+        /* styles.css */
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+td:last-child {
+  text-align: center;
+}
+
+a{
+  background-color: #F55050;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+a:hover {
+  background-color: #F3E8FF;
+}
+
+.success-msg {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.error-msg {
+  background-color: #f44336;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <h1>My Bookings</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Car Name</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.username }}</td>
+                <td>{{ booking.carname }}</td>
+                <td>{{ booking.date }}</td>
+                <td>
+                    <a href="{{ url_for('cancel_booking', booking_id=booking.id) }}" class="cancel-link">Cancel</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

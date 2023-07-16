@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+
+    .profile {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .profile img {
+      display: block;
+      margin: 0 auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      margin-bottom: 20px;
+    }
+
+    .profile label,
+    .profile input {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .profile input[type="text"],
+    .profile input[type="email"],
+    .profile input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .profile input[type="file"] {
+      padding: 4px;
+    }
+
+    .profile input[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .profile input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile">
+    <h1>User Profile</h1>
+    <form>
+      <img src="default-profile-picture.jpg" alt="Profile Picture">
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="profile-picture">Profile Picture:</label>
+      <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+
+      <input type="submit" value="Save">
+    </form>
+  </div>
+</body>
+</html>

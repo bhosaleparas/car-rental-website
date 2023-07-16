@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        /* CSS for the navbar */
+        body {
+            background-color: #F3E8FF;
+            /* background-image: url("/static/backgroundhome.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center top; */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #F55050;
+            /* padding: 10px; */
+            color: white;
+            text-align: center;
+            padding: 20px 22px;
+            text-decoration: none;
+            font-size: 22px;
+            /* z-index: 999; */
+            font-family:
+                sans-serifS
+
+        }
+
+        a {
+            font-size: 22px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar ul li {
+            margin: 0 10px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #F3E8FF;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown .dropbtn {
+            display: inline-block;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #ddd;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            background-color: #ddd;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #F3E8FF;
+        }
+
+        .car-box {
+            /* width: 95%; */
+            width: 1000px;
+            height: 200px;
+            background-color: white;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 20px;
+
+        }
+
+
+        .booking-option {
+            width: 25%;
+            text-align: center;
+        }
+
+        .booking-option select,
+        .booking-option input[type="date"],
+        .booking-option input[type="time"] {
+            width: 80%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .booking-option input[type="submit"] {
+            background-color: #EF4B4B;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .booking-option input:hover {
+            background-color: #F3E8FF;
+        }
+
+        label {
+            color: #EF4B4B;
+            font-size: 20px;
+        }
+
+        option {
+            font-size: 18px;
+        }
+
+        .book-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #EF4B4B;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            font-size: px;
+            cursor: pointer;
+        }
+
+        .book-button:hover {
+            background-color: #F3E8FF;
+        }
+
+        .heading {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100vh;
+        }
+
+        .content-wrapper {
+            text-align: center;
+            margin-bottom: 350px;
+            /* Adjust the value as needed */
+        }
+
+        form {
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            padding-bottom: 30px;
+        }
+
+        /* fotter */
+        body {
+            display: flex;
+            flex-direction: column;
+            /* min-height: 100vh; */
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #F3E8FF;
+            padding: 20px 10px;
+            line-height: 1.5;
+            margin-top: auto;
+        }
+
+        footer div {
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+            color: #888;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HTML code for the navbar -->
+    <div class="navbar">
+        <ul>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Account</a>
+                <div class="dropdown-content">
+                    <!-- <a href="#">Profile</a> -->
+                    <a href="{{url_for('my_bookings')}}">User Bookings</a>
+                    <a href="{{url_for('logout')}}">Logout</a>
+                </div>
+            </li>
+        </ul>
+        <ul>
+            <li><a href="{{url_for('home')}}">Home</a></li>
+            <li><a href="{{url_for('login')}}">Login</a></li>
+            <li><a href="{{url_for('signup')}}">Signup</a></li>
+            <li><a href="{{url_for('contact')}}">Contact Us</a></li>
+        </ul>
+    </div>
+    <!-- <div class="container">
+        <div class="content-wrapper">
+            <h1 class="heading">Unlock Your Journey with Our Cars </h1>
+            <form action="">
+                <div class="car-box">
+                    <div class="booking-option">
+                        <label for="city" validate="False">City:</label>
+                        <br>
+                        <select id="city" name="city">
+                            <option value="Pune">Pune</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Satara">Satara</option>
+                            <option value="Thane">Thane</option>
+                            <option value="Sangali">Sangali</option>
+                            <option value="Karad">Karad</option>
+                            <option value="Dombiwali">Dombiwali</option>
+                            <option value="Kolhapur">Kolhapur</option>
+                        </select>
+                    </div>
+                    <div class="booking-option">
+                        <label for="book-at">Book At:</label>
+                        <br>
+                        <select id="book-at" name="book-at">
+                            <option value="hourly">Hourly</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                    </div>
+                    <div class="booking-option">
+                        <label for="date">Date:</label>
+                        <br>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="booking-option">
+                        <label for="time">Time:</label>
+                        <br>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                    <div class="booking-option">
+                        <input type="submit" value="Book Now">
+                         <a class="book-button" href="/show_car">View Car</a>
+                    </div>
+                </div>
+
+            </form>
+        </div> -->
+    <!--  -->
+    <div class="container">
+        <div class="content-wrapper">
+            <h1 class="heading">Unlock Your Journey with Our Cars</h1>
+            <form action="">
+                <div class="car-box">
+                    <div class="booking-option">
+                        <label for="city" validate="False">City:</label>
+                        <br>
+                        <select id="city" name="city">
+                            <option value="pune">Pune</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="satara">Satara</option>
+                            <!-- <option value="satara">Nandurbar</option> -->
+                            <option value="kolhapur">Kolhapur</option>
+                            <option value="latur">Latur</option>
+                            <option value="baramati">Baramati</option>
+                            <!-- Add options for other cities -->
+                        </select>
+                    </div>
+                    <div class="booking-option">
+                        <label for="book-at">Book At:</label>
+                        <br>
+                        <select id="book-at" name="book-at">
+                            <option value="hourly">Hourly</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                    </div>
+                    <div class="booking-option">
+                        <label for="date">Date:</label>
+                        <br>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="booking-option">
+                        <label for="time">Time:</label>
+                        <br>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                    <div class="booking-option">
+                        <a class="book-button" id="view-car-link" href="#">View Car</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById("view-car-link").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+            var citySelect = document.getElementById("city");
+            var selectedCity = citySelect.options[citySelect.selectedIndex].value;
+
+            var carOptionsURL = "/view_car/" + selectedCity;
+
+            window.location.href = carOptionsURL;
+        });
+    </script>
+
+
+
+
+    <!--  -->
+    <script>
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                // Handle validation error, e.g., show an error message
+            }
+        });
+    </script>
+    </div>
+    <footer>
+        <div>
+            <p>&copy; 2023 Car Rentals pvt.ltd All rights reserved.</p>
+            <p>Wellesly Road Shivajinagar Pune 410005, Maharashtra</p>
+            <p>Phone: 123-456-7890 | Email: contact123@.com</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

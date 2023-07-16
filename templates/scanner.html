@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Booking Form</title>
+  <style>
+    /* CSS styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F3E8FF;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .booking-form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .book-car-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #F55050;
+      color: black;
+      border: none;
+      border-radius: 4px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .book-car-button:hover {
+      background-color: #F3E8FF;
+    }
+
+    /* msg style */
+    .flash-message {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .flash-success {
+      background-color: #dff0d8;
+      color: #3c763d;
+    }
+
+    .flash-error {
+      background-color: #f2dede;
+      color: #a94442;
+    }
+
+    /* QR code scanner styles */
+    .scanner-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      margin-bottom: 10px;
+      border: 2px dashed #ccc;
+      border-radius: 5px;
+    }
+
+    .scanner-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .qr-code-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .qr-code-image {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="flash-messages">
+    {% for message in messages %}
+    <div class="flash-message {% if 'success' in message %}flash-success{% elif 'error' in message %}flash-error{% endif %}">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+  <div class="booking-form">
+    <h2>Car Booking Form</h2>
+    <form action="/book_car" method="POST">
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-input" type="text" id="username" name="username" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="carname">Car Name</label>
+        <input class="form-input" type="text" id="carname" name="carname" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="id">Mobile No:</label>
+        <input class="form-input" type="number" id="id" name="id" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="booking-date">Booking Date</label>
+        <input class="form-input" type="date" id="booking-date" name="booking-date" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="booking-time">Booking Time</label>
+        <input class="form-input" type="time" id="booking-time" name="booking-time" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="payment-method">Payment Method</label>
+        <select class="form-input" id="payment-method" name="payment-method" required>
+          <option value="">Select Payment Method</option>
+          <option value="credit-card">Credit Card</option>
+          <option value="debit-card">Debit Card</option>
+          <option value="paypal">PayPal</option>
+        </select>
+      </div>
+
+      <!-- QR code scanner -->
+      <div class="form-group">
+        <label class="form-label" for="payment-qr-code">Scan QR Code to Pay</label>
+        <div class="scanner-container">
+          <video id="scanner-video" class="scanner-video"></video>
+        </div>
+      </div>
+
+      <!-- QR code display -->
+      <div class="form-group qr-code-container">
+        <img id="qr-code-image" class="qr-code-image" src="QR.jpeg" alt="QR Code">
+      </div>
+
+      <div class="form-group">
+        <input class="book-car-button" type="submit" value="Book Car">
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/1.0.0/instascan.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+  <script>
+    // Retrieve the car name from the URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const carName = urlParams.get('carname');
+
+    // Set the car name as the value of the "Car Name" input field
+    const carNameInput = document.getElementById('carname');
+    carNameInput.value = carName;
+    carNameInput.readOnly = true;
+
+    // Generate and display the QR code
+    const qrCodeImage = document.getElementById('qr-code-image');
+    const paymentQRCode = 'https://example.com/payment'; // Replace with the actual payment QR code URL
+    qrCodeImage.src = paymentQRCode;
+
+    // QR code scanner
+    const scanner = new Instascan.Scanner({
+      video: document.getElementById('scanner-video')
+    });
+
+    scanner.addListener('scan', function (content) {
+      // Process the scanned QR code content here
+      console.log('Scanned content:', content);
+      document.getElementById('payment-qr-code').value = content;
+    });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+      if (cameras.length > 0) {
+        scanner.start(cameras[0]);
+      } else {
+        console.error('No cameras found.');
+      }
+    }).catch(function (error) {
+      console.error(error);
+    });
+  </script>
+</body>
+</html>
